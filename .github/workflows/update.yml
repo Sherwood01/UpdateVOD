@@ -1,0 +1,33 @@
+name: Update VOD JSON
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # 每 6 小时自动执行一次
+  workflow_dispatch:       # 也可以手动触发
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run conversion script
+        run: python scripts/convert_vod.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add 20.json
+          git commit -m "Auto update 20.json from vod.json" || echo "No changes"
+          git push
