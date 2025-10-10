@@ -43,7 +43,7 @@ def fetch_and_convert(url, output_file):
     # 使用 Base58 编码
     encoded = base58.b58encode(json_str.encode("utf-8")).decode("utf-8")
 
-    # 保存为根目录文件
+    # 保存为文件
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(encoded)
 
@@ -51,12 +51,7 @@ def fetch_and_convert(url, output_file):
 
 def main():
     for source in VOD_SOURCES:
-        try:
-            fetch_and_convert(source["url"], source["output"])
-        except requests.RequestException as e:
-            print(f"❌ Failed to fetch {source['url']}: {e}")
-        except Exception as e:
-            print(f"❌ Error processing {source['url']}: {e}")
+        fetch_and_convert(source["url"], source["output"])
 
 if __name__ == "__main__":
     main()
