@@ -36,6 +36,13 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           if [ -d "output" ] && [ "$(ls -A output)" ]; then
             git add output/
-            git diff --quiet && echo "No changes to commit" || (git commit -m "Auto update VOD files" && git push)
+            git diff --quiet
+            if [ $? -ne 0 ]; then
+              git commit -m "Auto update VOD files"
+              git push
+            else
+              echo "No changes to commit."
+            fi
           else
             echo "No files in output/ to commit."
+          fi
