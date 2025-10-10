@@ -26,8 +26,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "137753051@qq.com"
+          git config --global user.email "Sherwood1"
           git add 20.json
           git commit -m "Auto update 20.json from vod.json" || echo "No changes"
           git push
