@@ -32,39 +32,40 @@ def convert_vod(vods):
     }
 
 def fetch_and_convert(url, output_file):
-    print(f"[{datetime.now()}] Fetching {url} ...")
-    response = requests.get(url)
-    response.raise_for_status()
-    vods = response.json()
-    print(f"Fetched {len(vods)} sources. Converting format...")
+    try:
+        print(f"[{datetime.now()}] Fetching {url} ...")
+        response = requests.get(url, timeout=20)
+        response.raise_for_status()
+        vods = response.json()
+        print(f"Fetched {len(vods)} sources. Converting format...")
 
-    # 转换成目标结构
-    converted = convert_vod(vods)
+        # 转换成目标结构
+        converted = convert_vod(vods)
 
-    # 转换为 JSON 字符串
-    json_str = json.dumps(converted, ensure_ascii=False, indent=2)
+        # 转换为 JSON 字符串
+        json_str = json.dumps(converted, ensure_ascii=False, indent=2)
 
-    # 使用 Base58 编码
-    encoded = base58.b58encode(json_str.encode("utf-8")).decode("utf-8")
+        # 使用 Base58 编码
+        encoded = base58.b58encode(json_str.encode("utf-8")).decode("utf-8")
 
-    # 确保输出目录存在
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    output_path = os.path.join(OUTPUT_DIR, output_file)
+        # 确保输出目录存在
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+        output_path = os.path.join(OUTPUT_DIR, output_file)
 
-    # 保存为文件
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(encoded)
+        # 保存为文件
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(encoded)
 
-    print(f"✅ Saved Base58-encoded data to {output_path}\n")
+        print(f"✅ Saved Base58-encoded data to {output_path}\n")
+
+    except requests.RequestException as e:
+        print(f"❌ Failed to fetch {url}: {e}")
+    except Exception as e:
+        print(f"❌ Error processing {url}: {e}")
 
 def main():
     for source in VOD_SOURCES:
-        try:
-            fetch_and_convert(source["url"], source["output"])
-        except requests.RequestException as e:
-            print(f"❌ Failed to fetch {source['url']}: {e}")
-        except Exception as e:
-            print(f"❌ Error processing {source['url']}: {e}")
+        fetch_and_convert(source["url"], source["output"])
 
 if __name__ == "__main__":
     main()
