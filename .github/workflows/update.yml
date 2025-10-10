@@ -2,8 +2,8 @@ name: Auto Update Vod
 
 on:
   schedule:
-    # 每天 0 点执行一次
-    - cron: "0 0 * * *"
+    # 每天北京时间 9 点触发（UTC 1 点）
+    - cron: "0 1 * * *"
   workflow_dispatch:
   push:
     branches: [ main ]
@@ -34,5 +34,8 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/
-          git diff --quiet && echo "No changes to commit" || (git commit -m "Auto update VOD files" && git push)
+          if [ -d "output" ] && [ "$(ls -A output)" ]; then
+            git add output/
+            git diff --quiet && echo "No changes to commit" || (git commit -m "Auto update VOD files" && git push)
+          else
+            echo "No files in output/ to commit."
