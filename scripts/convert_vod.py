@@ -39,11 +39,11 @@ def fetch_and_convert(url, output_file):
     # 转换为 JSON 字符串
     json_str = json.dumps(converted, ensure_ascii=False, indent=2)
 
-    # 保存为文件（不进行 Base58 编码）
+    # 保存为文件（直接保存到项目根目录）
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(json_str)
 
-    print(f"✅ Saved JSON data to {output_file}\n")
+    print(f"✅ Saved data to {output_file}\n")
 
 def main():
     for source in VOD_SOURCES:
