@@ -16,30 +16,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      # 3. Install dependencies
       - name: Install dependencies
-        run: |
-          pip install requests
+        run: pip install requests
 
-      # 4. Run Python script
-      - name: Run Vod conversion script
+      - name: Fetch and convert VOD data
         run: |
-          python scripts/convert_vod.py
+          # 检查并生成文件
+          if [ ! -f "vod.json" ]; then
+            echo "vod.json does not exist, creating it now."
+            python scripts/convert_vod.py  # 这里执行你的Python脚本
+          fi
+          if [ ! -f "xvod.json" ]; then
+            echo "xvod.json does not exist, creating it now."
+            python scripts/convert_vod.py  # 这里执行你的Python脚本
+          fi
 
-      # 5. Commit and push if changed
-      - name: Commit and push if changed
+      - name: Commit and push changes if needed
         run: |
+          # 配置 Git 用户信息
           git config --global user.name "137753051@qq.com"
           git config --global user.email "Sherwood1"
+          
+          # 检查是否有变化，如果有则提交
           git add vod.json xvod.json
           git diff --quiet && echo "No changes to commit" || (git commit -m "Auto update vod.json and xvod.json" && git push)
+
