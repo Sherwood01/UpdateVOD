@@ -51,7 +51,12 @@ def fetch_and_convert(url, output_file):
 
 def main():
     for source in VOD_SOURCES:
-        fetch_and_convert(source["url"], source["output"])
+        try:
+            fetch_and_convert(source["url"], source["output"])
+        except requests.RequestException as e:
+            print(f"❌ Failed to fetch {source['url']}: {e}")
+        except Exception as e:
+            print(f"❌ Error processing {source['url']}: {e}")
 
 if __name__ == "__main__":
     main()
