@@ -42,6 +42,6 @@ jobs:
           git config --global user.email "Sherwood1"
           
           # 检查是否有变化，如果有则提交
-          git add vod.json xvod.json update_time.txt
+          git add vod.json xvod.json 20.json 98.json 118.json update_time.txt
           git commit -m "Auto update multiple files with webpage contents"
           git push
