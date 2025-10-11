@@ -30,12 +30,10 @@ jobs:
         run: |
           pip install requests
 
-      # 4. Create Python script file
-      - name: Create Python script
+      # 4. Write Python script to file
+      - name: Write Python script to file
         run: |
-          mkdir -p scripts
-          echo '
-import json
+          echo 'import json
 import requests
 from datetime import datetime
 
@@ -90,7 +88,7 @@ if __name__ == "__main__":
     main()
           ' > scripts/convert_vod.py
 
-      # 5. Run Python script to fetch and update files
+      # 5. Run the Python script to fetch and update files
       - name: Run Vod conversion script
         run: |
           python scripts/convert_vod.py
