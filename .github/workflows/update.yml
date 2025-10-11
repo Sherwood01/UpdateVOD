@@ -35,5 +35,4 @@ jobs:
           git config --global user.name "137753051@qq.com"
           git config --global user.email "Sherwood1"
           git add vod.json xvod.json
-          git commit -m "Auto update multiple files with webpage contents"
-          git push
+          git diff --quiet && echo "No changes to commit" || (git commit -m "Auto update vod.json and xvod.json" && git push)
