@@ -30,10 +30,11 @@ jobs:
         run: |
           pip install requests
 
-      # 4. Write Python script to file
-      - name: Write Python script to file
+      # 4. Create the Python script file
+      - name: Create Python script
         run: |
-          echo 'import json
+          echo '
+import json
 import requests
 from datetime import datetime
 
