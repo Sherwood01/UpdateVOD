@@ -1,6 +1,6 @@
 import json
 import requests
-import os
+import base58
 from datetime import datetime
 
 # 多个远程 VOD 地址和对应输出文件
@@ -40,17 +40,14 @@ def fetch_and_convert(url, output_file):
     # 转换为 JSON 字符串
     json_str = json.dumps(converted, ensure_ascii=False, indent=2)
 
-    # 检查文件是否存在，如果不存在则创建文件
-    if not os.path.exists(output_file):
-        print(f"File {output_file} does not exist, creating new file...")
+    # 使用 Base58 编码
+    encoded = base58.b58encode(json_str.encode("utf-8")).decode("utf-8")
 
-        # 保存为文件（直接保存到项目根目录）
-        with open(output_file, "w", encoding="utf-8") as f:
-            f.write(json_str)
+    # 保存为文件
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(encoded)
 
-        print(f"✅ Saved data to {output_file}\n")
-    else:
-        print(f"File {output_file} already exists. Skipping file creation.")
+    print(f"✅ Saved Base58-encoded data to {output_file}\n")
 
 def main():
     for source in VOD_SOURCES:
