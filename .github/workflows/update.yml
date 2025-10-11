@@ -39,7 +39,7 @@ jobs:
             python scripts/convert_vod.py  # 这里执行你的Python脚本
           fi
 
-      - name: Commit and push changes if needed
+      - name: Commit and push changes
         run: |
           # 配置 Git 用户信息
           git config --global user.name "137753051@qq.com"
