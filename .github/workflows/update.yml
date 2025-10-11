@@ -47,5 +47,6 @@ jobs:
           
           # 检查是否有变化，如果有则提交
           git add vod.json xvod.json
-          git commit -m "Auto update vod.json and xvod.json" && git push
+          git commit -a -m "Auto update vod.json and xvod.json"
+          git push
 
