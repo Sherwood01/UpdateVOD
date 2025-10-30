@@ -5,13 +5,12 @@ from datetime import datetime
 
 # 多个远程 VOD 地址和对应输出文件
 VOD_SOURCES = [
-    {"url": "https://d1y.github.io/kitty/vod.json", "output": "vod.json", "convert": True},
-    {"url": "https://d1y.github.io/kitty/xvod.json", "output": "xvod.json", "convert": True},
+    {"url": "http://vod.xwqin.com/output/vod.json", "output": "vod.json", "convert": False},
+    {"url": "http://vod.xwqin.com/output/xvod.json", "output": "xvod.json", "convert": False},
     {"url": "http://vod.xwqin.com/output/20.json", "output": "20.json", "convert": False},
     {"url": "http://vod.xwqin.com/output/32.json", "output": "32.json", "convert": False},
     {"url": "http://vod.xwqin.com/output/98.json", "output": "98.json", "convert": False},
-    {"url": "http://vod.xwqin.com/output/118.json", "output": "118.json", "convert": False},
-    {"url": "http://vod.xwqin.com/output/all.json", "output": "all.json", "convert": True}
+    {"url": "http://vod.xwqin.com/output/118.json", "output": "118.json", "convert": False}
 ]
 
 def convert_vod(vods):
