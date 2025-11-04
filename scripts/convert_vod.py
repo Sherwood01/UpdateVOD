@@ -10,8 +10,9 @@ VOD_SOURCES = [
     {"url": "http://vod.xwqin.com/output/20.json", "output": "20.json", "convert": False},
     {"url": "http://vod.xwqin.com/output/32.json", "output": "32.json", "convert": False},
     {"url": "http://vod.xwqin.com/output/98.json", "output": "98.json", "convert": False},
-    {"url": "http://vod.xwqin.com/output/118.json", "output": "118.json", "convert": False}，
-    {"url": "https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json", "output": "all.json", "convert": False}
+    {"url": "http://vod.xwqin.com/output/118.json", "output": "118.json", "convert": False},
+    {"url": "https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json", "output": "all.json", "convert": False},
+    {"url": "https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.json", "output": "jin18.json", "convert": False}
 ]
 
 def convert_vod(vods):
